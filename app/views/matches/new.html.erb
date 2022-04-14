@@ -1,0 +1,36 @@
+<h1>New Match</h1>
+
+<%= form_with(model: @match) do |form| %>
+  <% if @match.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being recorded:</h2>
+
+      <ul>
+        <% @match.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :winner, style: "display: block" %>
+    <%= form.select :winner, User.pluck(:name) %>
+  </div>
+
+  <div>
+    <%= form.label :loser, style: "display: block" %>
+    <%= form.select :loser, User.pluck(:name) %>
+
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Back to users", users_path %>
+</div>
