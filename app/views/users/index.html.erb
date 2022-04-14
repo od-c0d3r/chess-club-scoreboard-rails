@@ -11,7 +11,7 @@
       <th><strong>Profile</strong></th>
     </tr>
     <% @users.each do |user| %>
-      <%= render user %>
+      <%= render partial: "user_index", :locals => {:user => user} %>
     <% end %>
   </table>
 </div>
