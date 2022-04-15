@@ -18,8 +18,9 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
-        # update_rank(player_one, player_two, result, @match)
-        # update_games_played(player_one, player_two)
+        update_games_played(@match.player_one)
+        update_games_played(@match.player_two)
+
         format.html { redirect_to users_path, notice: "Ranks updated and match successfully recorded." }
         format.json { render :show, status: :created, location: @match }
       else
@@ -35,13 +36,23 @@ class MatchesController < ApplicationController
     params.require(:match).permit(:player_one, :player_two, :result)
   end
 
-  def update_rank(player_one, player_two, result, match)
-    case result
-    when 'Player 1 Wins'
+  def update_players_info(match)
+    update_games_played(match.player_one)
+    update_games_played(match.player_two)
+    update_rank(match)
+  end
+
+  def update_games_played(player)
+    User.where(:id => player.id).update_all(:games_played => player.matches.length)
+  end
+
+  def update_rank(match)
+    case match.result
+    when 'Player 1 Won' 
+
+    when 'Player 2 Won'
       puts 'n is a perfect square'
-    when 'Player 2 Wins'
-      puts 'n is a perfect square'
-    when "It's a Draw"
+    when 'Draw'
       puts 'n is a prime number'
     else
       # render :new, status: :unprocessable_entity    
