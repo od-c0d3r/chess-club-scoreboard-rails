@@ -1,4 +1,15 @@
 class User < ApplicationRecord
-  has_many :wins, as: :winner, class_name: 'Match'
-  has_many :losses, as: :loser, class_name: 'Match'
+  def matches
+    get_matchs_as_player_one(self).compact.concat(get_matchs_as_player_two(self))
+  end
+
+  private
+
+  def get_matchs_as_player_one(player)
+    Match.where(player_one:player)
+  end
+
+  def get_matchs_as_player_two(player)
+    Match.where(player_two:player)
+  end
 end

@@ -1,9 +1,15 @@
 <h1>New Match</h1>
 
+<%
+=begin%>
+ <% debugger %> 
+<%
+=end%>
+
 <%= form_with(model: @match) do |form| %>
   <% if @match.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(match.errors.count, "error") %> prohibited this match from being recorded:</h2>
+      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being recorded:</h2>
 
       <ul>
         <% @match.errors.each do |error| %>
@@ -14,14 +20,18 @@
   <% end %>
 
   <div>
-    <%= form.label :winner, style: "display: block" %>
-    <%= form.collection_select :winner, @users, :id, :name %>
+    <%= form.label :player_one, style: "display: block" %>
+    <%= form.collection_select :player_one, @users, :id, :name %>
+    <% debugger %>
   </div>
 
   <div>
-    <%= form.label :loser, style: "display: block" %>
-    <%= form.collection_select :loser, @users, :id, :name %>
-
+    <%= form.label :player_two, style: "display: block" %>
+    <%= form.collection_select :player_two, @users, :id, :name %>
+  </div>
+    <div>
+    <%= form.label :result, style: "display: block" %>
+    <%= form.select :result, ["Player 1 Wins", "Player 2 Wins", "It's a Draw"] %>
   </div>
 
   <div>
