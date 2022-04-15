@@ -23,7 +23,6 @@ class MatchesController < ApplicationController
         format.html { redirect_to users_path, notice: "Ranks updated and match successfully recorded." }
         format.json { render :show, status: :created, location: @match }
       else
-        debugger
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @match.errors, status: :unprocessable_entity }
       end

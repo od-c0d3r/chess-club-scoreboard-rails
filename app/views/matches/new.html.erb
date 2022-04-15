@@ -2,7 +2,6 @@
 
 <%= form_with(model: @match) do |form| %>
   <% if @match.errors.any? %>
-    <% debugger %>
     <div style="color: red">
       <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being recorded:</h2>
 
