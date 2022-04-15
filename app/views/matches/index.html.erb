@@ -9,8 +9,14 @@
       <th><strong>Player 2</strong></th>
       <th><strong>Result</strong></th>
     </tr>
-    <% @matches.each do |match| %>
-      <%= render partial: "match", :locals => {:match => match} %>
+    <% if @users.present? %>
+      <% @matches.each do |match| %>
+        <%= render partial: "match", :locals => {:match => match} %>
+      <% end %>
+    <% else%>
+     <tr>
+       <td colspan="4"><i><center>Empty</center></i></td>
+     </tr>
     <% end %>
   </table>
 </div>

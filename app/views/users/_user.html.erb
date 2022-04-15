@@ -40,8 +40,12 @@
         <th><strong>Player 2</strong></th>
         <th><strong>Result</strong></th>
       </tr>
-      <% user.matches.each do |match| %>
-        <%= render partial: "matches/match", :locals => {:match => match} %>
+      <% if user.matches.present? %>
+        <% user.matches.each do |match| %>
+          <%= render partial: "matches/match", :locals => {:match => match} %>
+        <% end %>
+      <% else%>
+        <td colspan="3"><i><center>Empty</center></i></td>
       <% end %>
     </table>
   </div>

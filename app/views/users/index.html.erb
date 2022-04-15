@@ -10,9 +10,15 @@
       <th><strong>Rank</strong></th>
       <th><strong>Profile</strong></th>
     </tr>
-    <% @users.each do |user| %>
-      <%= render partial: "user_index", :locals => {:user => user} %>
+  <% if @users.present? %>
+    <% @users.each_with_index do |user,index| %>
+      <%= render partial: "user_index", :locals => {:user => user, :index => index} %>
     <% end %>
+  <% else%>
+    <tr>
+      <td colspan="4"><i><center>Empty</center></i></td>
+    </tr>
+  <% end %>
   </table>
 </div>
 

@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  validates_presence_of :name
+  validates_presence_of :surname
+  validates_presence_of :rank
+  validates_presence_of :games_played
+  validates_presence_of :birthday
+  validates :email   , presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :birthday, comparison: { less_than: 18.years.ago, message: "Must be older than 18"}
+  
   def matches
     get_matchs_as_player_one(self).compact.concat(get_matchs_as_player_two(self))
   end

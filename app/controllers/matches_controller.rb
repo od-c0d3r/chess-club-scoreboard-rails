@@ -17,6 +17,7 @@ class MatchesController < ApplicationController
     respond_to do |format|
       if @match.save
         # update_rank(player_one, player_two, result, @match)
+        # update_games_played(player_one, player_two)
         format.html { redirect_to users_path, notice: "Ranks updated and match successfully recorded." }
         format.json { render :show, status: :created, location: @match }
       else
@@ -35,7 +36,7 @@ class MatchesController < ApplicationController
   def update_rank(player_one, player_two, result, match)
     case result
     when 'Player 1 Wins'
-      player_one.wins << @match
+      puts 'n is a perfect square'
     when 'Player 2 Wins'
       puts 'n is a perfect square'
     when "It's a Draw"
