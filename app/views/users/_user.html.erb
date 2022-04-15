@@ -1,4 +1,6 @@
 <div id="<%= dom_id user %>">
+  <h2><%= user.name %>'s Profile</h2>
+
   <p>
     <strong>Name:</strong>
     <%= user.name %>
@@ -29,4 +31,18 @@
     <%= user.rank %>
   </p>
 
+  <h3>Matches</h4>
+
+  <div id="matches">
+    <table>
+      <tr>
+        <th><strong>Player 1</strong></th>
+        <th><strong>Player 2</strong></th>
+        <th><strong>Result</strong></th>
+      </tr>
+      <% user.matches.each do |match| %>
+        <%= render partial: "matches/match", :locals => {:match => match} %>
+      <% end %>
+    </table>
+  </div>
 </div>

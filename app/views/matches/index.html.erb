@@ -1,2 +1,24 @@
-<h1>Matches#index</h1>
-<p>Find me in app/views/matches/index.html.erb</p>
+<p style="color: green"><%= notice %></p>
+
+<h1>Matches Records</h1>
+
+<div id="matches">
+  <table>
+    <tr>
+      <th><strong>Player 1</strong></th>
+      <th><strong>Player 2</strong></th>
+      <th><strong>Result</strong></th>
+    </tr>
+    <% @matches.each do |match| %>
+      <%= render partial: "match", :locals => {:match => match} %>
+    <% end %>
+  </table>
+</div>
+
+<div>
+  <%= link_to "New match", new_match_path %> 
+</div>
+
+<div>
+  <%= link_to "Back to ranks", users_path %>
+</div>
