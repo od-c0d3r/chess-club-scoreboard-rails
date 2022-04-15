@@ -15,12 +15,12 @@
 
   <div>
     <%= form.label :winner, style: "display: block" %>
-    <%= form.select :winner, User.pluck(:name) %>
+    <%= form.collection_select :winner, @users, :id, :name %>
   </div>
 
   <div>
     <%= form.label :loser, style: "display: block" %>
-    <%= form.select :loser, User.pluck(:name) %>
+    <%= form.collection_select :loser, @users, :id, :name %>
 
   </div>
 
