@@ -7,5 +7,12 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 10.times do |i|
-    User.create!(name: "#{i}name", surname: "#{i}name", email:"#{i}email@email.com", birthday:'1/1/2000', rank: i+1, games_played:0)
+    User.create!(
+        name:         Faker::Name.first_name,
+        surname:      Faker::Name.last_name,
+        email:        Faker::Internet.email,
+        birthday:     Faker::Date.birthday(min_age: 18, max_age: 65),
+        rank:         i+1,
+        games_played: 0
+    )
 end
