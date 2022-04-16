@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_save :capitalize_names
+  
   validates_presence_of :name
   validates_presence_of :surname
   validates_presence_of :rank
@@ -12,6 +14,10 @@ class User < ApplicationRecord
   end
 
   private
+  def capitalize_names
+    self.name.capitalize!
+    self.surname.capitalize!
+  end
 
   def get_matchs_as_player_one(player)
     Match.where(player_one:player)

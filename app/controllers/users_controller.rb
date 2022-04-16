@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.rank = User.all.length + 1
+    @user.games_played = 0
 
     respond_to do |format|
       if @user.save

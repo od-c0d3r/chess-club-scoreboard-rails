@@ -18,8 +18,7 @@ class MatchesController < ApplicationController
 
     respond_to do |format|
       if @match.save
-        update_games_played(@match.player_one)
-        update_games_played(@match.player_two)
+        update_players_info(@match)
 
         format.html { redirect_to users_path, notice: "Ranks updated and match successfully recorded." }
         format.json { render :show, status: :created, location: @match }
@@ -39,7 +38,7 @@ class MatchesController < ApplicationController
   def update_players_info(match)
     update_games_played(match.player_one)
     update_games_played(match.player_two)
-    update_rank(match)
+    # update_rank(match)
   end
 
   def update_games_played(player)
