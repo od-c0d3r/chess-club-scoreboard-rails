@@ -16,17 +16,13 @@ class MatchesController < ApplicationController
     @match = Match.new(player_one:player_one, player_two:player_two, result:result)
     @users = User.all
 
-    respond_to do |format|
-      if @match.save
-        update_players_info(@match)
-
-        format.html { redirect_to users_path, notice: "Ranks updated and match successfully recorded." }
-        format.json { render :show, status: :created, location: @match }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
+    if @match.save
+      update_players_info(@match)
+      redirect_to users_path, notice: "Ranks updated and match successfully recorded."
+    else
+      render :new, status: :unprocessable_entity
     end
+
   end
 
   private
