@@ -38,7 +38,7 @@ class MatchesController < ApplicationController
   def update_players_info(match)
     update_games_played(match.player_one)
     update_games_played(match.player_two)
-    # update_rank(match)
+    update_rank(match)
   end
 
   def update_games_played(player)
@@ -46,15 +46,43 @@ class MatchesController < ApplicationController
   end
 
   def update_rank(match)
-    case match.result
-    when 'Player 1 Won' 
+    one = match.player_one
+    two = match.player_two
+    result = match.result
 
-    when 'Player 2 Won'
-      puts 'n is a perfect square'
-    when 'Draw'
-      puts 'n is a prime number'
-    else
-      # render :new, status: :unprocessable_entity    
+    case result
+      when 'Draw'
+        if (-1..1).exclude?(one.rank - two.rank)
+          if one.rank > two.rank
+            User.where(:rank => one.rank - 1).update_all(:rank => one.rank)
+            User.where(:id => one.id).update_all(:rank => one.rank - 1)
+          else 
+            User.where(:rank => two.rank - 1).update_all(:rank => two.rank)
+            User.where(:id => two.id).update_all(:rank => two.rank - 1)
+          end 
+        end
+      when 'Player 1 Won'
+        if one.rank > two.rank
+          User.where(:rank => two.rank + 1).update_all(:rank => two.rank)
+          User.where(:id => two.id).update_all(:rank => two.rank + 1)
+
+          update_following_ranks( one.rank - ((one.rank - two.rank)/2), one.rank)
+          User.where(:id => one.id).update_all(:rank => one.rank - (one.rank - two.rank)/2)
+        end
+      when 'Player 2 Won'
+        if two.rank > one.rank
+          User.where(:rank => one.rank + 1).update_all(:rank => one.rank)
+          User.where(:id => one.id).update_all(:rank => one.rank + 1)
+            
+          update_following_ranks( two.rank - ((two.rank - one.rank)/2), two.rank)
+          User.where(:id => two.id).update_all(:rank => two.rank - (two.rank - one.rank)/2)
+        end
+      end
+  end
+
+  def update_following_ranks(start, last)
+    User.where(id: (start..last)).to_a.each do |user|
+      User.where(id: user.id).update_all(:rank => user.rank + 1)
     end
   end
 end
