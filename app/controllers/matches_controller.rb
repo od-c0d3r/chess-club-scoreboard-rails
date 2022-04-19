@@ -49,36 +49,35 @@ class MatchesController < ApplicationController
     case result
       when 'Draw'
         if (-1..1).exclude?(one.rank - two.rank)
-          if one.rank > two.rank
-            User.where(:rank => one.rank - 1).update_all(:rank => one.rank)
-            User.where(:id => one.id).update_all(:rank => one.rank - 1)
-          else 
-            User.where(:rank => two.rank - 1).update_all(:rank => two.rank)
-            User.where(:id => two.id).update_all(:rank => two.rank - 1)
-          end 
+          one.rank > two.rank ? upgrade_rank(one) : upgrade_rank(two)
         end
       when 'Player 1 Won'
         if one.rank > two.rank
-          User.where(:rank => two.rank + 1).update_all(:rank => two.rank)
-          User.where(:id => two.id).update_all(:rank => two.rank + 1)
-
-          update_following_ranks( one.rank - ((one.rank - two.rank)/2), one.rank)
-          User.where(:id => one.id).update_all(:rank => one.rank - (one.rank - two.rank)/2)
+          jump_rank(one, two)
+          downgrade_rank(two)
         end
       when 'Player 2 Won'
         if two.rank > one.rank
-          User.where(:rank => one.rank + 1).update_all(:rank => one.rank)
-          User.where(:id => one.id).update_all(:rank => one.rank + 1)
-            
-          update_following_ranks( two.rank - ((two.rank - one.rank)/2), two.rank)
-          User.where(:id => two.id).update_all(:rank => two.rank - (two.rank - one.rank)/2)
+          jump_rank(two, one)
+          downgrade_rank(one)
         end
       end
   end
 
-  def update_following_ranks(start, last)
-    User.where(id: (start..last)).to_a.each do |user|
-      User.where(id: user.id).update_all(:rank => user.rank + 1)
+  def downgrade_rank(player)
+    User.where(:rank => player.rank + 1)[0].update(:rank => player.rank)
+    player.update(:rank => player.rank + 1)
+  end
+
+  def upgrade_rank(player)
+    User.where(:rank => player.rank - 1).update_all(:rank => player.rank)
+    player.update(:rank => player.rank - 1)
+  end
+
+  def jump_rank(jumper, holder)
+    jumper_rank = jumper.rank - ((jumper.rank - holder.rank)/2.0).round()
+    until jumper_rank == jumper.rank do
+      upgrade_rank(jumper)
     end
   end
 end

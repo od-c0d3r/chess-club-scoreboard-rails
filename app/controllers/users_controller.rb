@@ -36,6 +36,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    update_ranks_on_delete_user(@user.rank + 1, User.all.size)
     @user.destroy
     redirect_to users_url, notice: "User was successfully destroyed."
   end
@@ -47,5 +48,11 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :surname, :email, :birthday, :games_played, :rank)
+    end
+
+    def update_ranks_on_delete_user(start, last)
+      User.where(rank: (start..last)).to_a.each do |user|
+        user.update(:rank => user.rank - 1)
+      end
     end
 end
