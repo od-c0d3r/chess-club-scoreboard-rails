@@ -1,0 +1,28 @@
+p1:
+  name: 'John'
+  surname: 'Klop'
+  email: 'jognklop@email.com'
+  birthday: '1/1/1990'
+  games_played: ''
+  rank: '1'
+p2:
+  name: 'Uoki'
+  surname: 'Klop'
+  email: 'jognklop2@email.com'
+  birthday: '1/1/1990'
+  games_played: ''
+  rank: '2'
+p3:
+  name: 'Adam'
+  surname: 'Klop'
+  email: 'jognklop3@email.com'
+  birthday: '1/1/1990'
+  games_played: ''
+  rank: '3'
+p4:
+  name: 'Tory'
+  surname: 'Klop'
+  email: 'jognklop4@email.com'
+  birthday: '1/1/1990'
+  games_played: ''
+  rank: '4'
