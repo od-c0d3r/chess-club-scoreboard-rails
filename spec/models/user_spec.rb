@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  fixtures :users
-  let(:user) { User.new(name: 'name', surname: 'surname', email: 'test@test.com', birthday: '1/1/1990', games_played: 0, rank: 1) }
+  
+  let(:user) {User.new(name: 'Adam', surname:'jack', email: 'adam@jack.com', birthday:'1/1/1990', rank: 1, games_played: 0)}
   
   context 'on creation' do
 
@@ -72,9 +72,9 @@ RSpec.describe User, type: :model do
   end
   
   context 'user helper methods' do
-    let(:user1) { users(:p1) }
-    let(:user2) { users(:p2) }
-    let(:user3) { users(:p3) }
+    let(:user1) { User.create!(name: 'Adam', surname:'jack', email: 'adam@jack.com', birthday:'1/1/1990', rank: 1, games_played: 0) }
+    let(:user2) { User.create!(name: 'Jone', surname:'jack', email: 'jone@jack.com', birthday:'1/1/1990', rank: 2, games_played: 0) }
+    let(:user3) { User.create!(name: 'Dam', surname:'jack', email: 'dam@jack.com', birthday:'1/1/1990', rank: 3, games_played: 0) }
 
     it 'should get user matches' do
       Match.create!(player_one: user1, player_two: user2, result: 'Draw')
