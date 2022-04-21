@@ -2,6 +2,8 @@
 
 # chess-club-scoreboard-rails
 
+> [Live demo](https://chess-club-scoreboard-rails.herokuapp.com/)
+
 > The local chess club wants to keep track of their members. The main thing that they want to
 keep track of, is the ranking of each member. They need a basic system to Create, Show
 Update and Delete members.
