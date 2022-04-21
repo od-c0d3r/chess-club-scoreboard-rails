@@ -1,7 +1,9 @@
-describe "Integration test 2", type: :feature do
+describe "Integration test: Rank System", type: :feature do
     before :each do
         User.create!(name: 'Adam', surname:'jack', email: 'adam@jack.com', birthday:'1/1/1990', rank: 1, games_played: 0)
         User.create!(name: 'Ahmed', surname:'jack', email: 'ahmed@jack.com', birthday:'1/1/1990', rank: 2, games_played: 0)
+        User.create!(name: 'Phil', surname:'jack', email: 'phil@jack.com', birthday:'1/1/1990', rank: 3, games_played: 0)
+
     end
 
     context 'high rank player won' do
@@ -40,6 +42,16 @@ describe "Integration test 2", type: :feature do
 
             expect(find('#user_1')).to have_content '#2'
             expect(find('#user_2')).to have_content '#1'
+        end
+    end
+
+    context 'after destroy a user' do
+        it 'updates users ranks' do
+            visit '/users/1'
+
+            click_button 'Delete this user'
+
+            expect(find('#user_3')).to have_content '#2'
         end
     end
 end

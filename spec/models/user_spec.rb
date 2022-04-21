@@ -95,4 +95,15 @@ RSpec.describe User, type: :model do
       expect(user.surname).to eq('Lowercasesurname')
     end
   end
+
+  context 'on update' do
+    it 'should changes user information' do
+      user.save
+      expect(user.name).to eq('Adam')
+
+      user.update(name:'Mark')
+
+      expect(user.name).to eq('Mark')
+    end
+  end
 end
