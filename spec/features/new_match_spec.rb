@@ -1,4 +1,4 @@
-describe "Integration tests", type: :feature do
+describe "Integration test 1", type: :feature do
     context 'creates new match' do
         before :each do
             User.create!(name: 'Adam', surname:'jack', email: 'adam@jack.com', birthday:'1/1/1990', rank: 1, games_played: 0)
@@ -6,7 +6,6 @@ describe "Integration tests", type: :feature do
         end
 
         it "shows match details after creation" do
-            
             visit '/matches/new'
             click_button 'Create Match'
 
